@@ -1,19 +1,12 @@
 const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-
-// const htmlPlugin = new HtmlWebPackPlugin({
-//   template: "./src/index.js",
-//   filename: "./public/index.html",
-//   inject: false
-// });
 
 const config = {
   target: "electron-main",
   devtool: "source-map",
-  entry: "./src/main.js",
+  entry: "./src/main.ts",
   output: {
     filename: "main.js",
-    path: path.resolve(__dirname, "public")
+    path: path.resolve(__dirname, "build")
   },
   module: {
     rules: [
@@ -33,7 +26,6 @@ const config = {
     __dirname: false,
     __filename: false
   }
-  //plugins: [htmlPlugin]
 };
 
 module.exports = (env, argv) => {
