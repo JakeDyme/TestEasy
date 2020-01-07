@@ -1,20 +1,26 @@
 import React, { Component } from "react";
 import AppSection from "./AppSection";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
-function AppSectionContainer() {
+const AppSectionContainer = props => {
+  const { height, width } = useWindowDimensions();
+
   const styles = {
     position: "fixed",
-    marginTop: 70,
-    marginLeft: 80,
-    marginRight: 5,
-    marginBottom: 5
+    top: props.topbarheight,
+    left: props.leftbarwidth,
+    width: width - props.leftbarwidth,
+    height: height - props.topbarheight
   };
 
   return (
     <div style={styles}>
-      <AppSection></AppSection>
+      <AppSection
+        leftbarwidth={props.leftbarwidth}
+        topbarheight={props.topbarheight}
+      ></AppSection>
     </div>
   );
-}
+};
 
 export default AppSectionContainer;

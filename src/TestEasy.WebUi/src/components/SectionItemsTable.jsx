@@ -22,7 +22,13 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 const SECTION_ITEMS_ENDPOINT = "https://jsonplaceholder.typicode.com/users";
 
 const columnsHeaders = [
-  { id: "name", label: "Name", minWidth: 170 }
+  {
+    id: "name",
+    label: "Name",
+    minWidth: 170,
+    align: "right",
+    format: value => value.toLocaleString()
+  }
   // {
   //   id: "population",
   //   label: "Population",
@@ -88,31 +94,6 @@ const ExpansionPanelDetails = withStyles(theme => ({
   }
 }))(MuiExpansionPanelDetails);
 
-
-
-// function createData(name, id, population, size) {
-//   const density = population / size;
-//   return { name, id, population, size, density };
-// }
-
-// const rows = [
-//   createData("India", "IN", 1324171354, 3287263),
-//   createData("China", "CN", 1403500365, 9596961),
-//   createData("Italy", "IT", 60483973, 301340),
-//   createData("United States", "US", 327167434, 9833520),
-//   createData("Canada", "CA", 37602103, 9984670),
-//   createData("Australia", "AU", 25475400, 7692024),
-//   createData("Germany", "DE", 83019200, 357578),
-//   createData("Ireland", "IE", 4857000, 70273),
-//   createData("Mexico", "MX", 126577691, 1972550),
-//   createData("Japan", "JP", 126317000, 377973),
-//   createData("France", "FR", 67022000, 640679),
-//   createData("United Kingdom", "GB", 67545757, 242495),
-//   createData("Russia", "RU", 146793744, 17098246),
-//   createData("Nigeria", "NG", 200962417, 923768),
-//   createData("Brazil", "BR", 210147125, 8515767)
-// ];
-
 const useStyles = makeStyles({
   expanableRow: {
     padding: 0
@@ -121,22 +102,23 @@ const useStyles = makeStyles({
     width: "100%"
   },
   container: {
-    maxHeight: 440
+    
+    //maxHeight: 440
   }
 });
 
-export default function SectionItemsTable() {
-  const [expanded, setExpanded] = React.useState("panel1");
+const SectionItemsTable = props => {
+  const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const [data, setData] = useState({ items: [], isFetching: false });
-  
+
   function toEditable(sectionItem) {
-    return { 
-      id: sectionItem.id, 
-      name: sectionItem.name,
+    return {
+      id: sectionItem.id,
+      name: sectionItem.name
     };
   }
 
@@ -261,4 +243,6 @@ export default function SectionItemsTable() {
       />
     </Paper>
   );
-}
+};
+
+export default SectionItemsTable;

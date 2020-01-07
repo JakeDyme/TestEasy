@@ -16,7 +16,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
-const drawerWidth = 240;
+const drawerWidth = 0;
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -197,7 +197,7 @@ const TopBar = props => {
           </IconButton>
 
           <Typography className={classes.title} variant="h5" noWrap>
-            TestEasy ('o')
+            TestEasy
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

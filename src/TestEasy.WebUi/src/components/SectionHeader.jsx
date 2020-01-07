@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   card: {
-    minWidth: 275
+    minWidth: 300
   },
   bullet: {
     display: "inline-block",
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SectionHeader() {
+const SectionHeader = props => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
@@ -53,4 +53,6 @@ export default function SectionHeader() {
       <CardActions></CardActions>
     </Card>
   );
-}
+};
+
+export default SectionHeader;
