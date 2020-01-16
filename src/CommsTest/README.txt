@@ -1,0 +1,1 @@
+This project demonstrates communication between Electron and Dotnet using IPC (Inter-process communication)
