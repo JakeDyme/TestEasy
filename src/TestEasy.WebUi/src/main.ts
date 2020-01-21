@@ -3,22 +3,28 @@ const path = require("path");
 const { ConnectionBuilder } = require("electron-cgi");
 import { protocol, app, BrowserWindow } from "electron";
 
-let connection = new ConnectionBuilder()
+// let connection = new ConnectionBuilder()
+//   .connectTo(
+//     "dotnet",
+//     "run",
+//     "--project",
+//     "../TestEasy.WebApi/TestEasy.WebApi.csproj"
+//   )
+//   .build();
+
+  let connection = new ConnectionBuilder()
   .connectTo(
-    "dotnet",
-    "run",
-    "--project",
-    "../CommsTest/CommsTest"
+    "./backend/netcoreapp3.1/TestEasy.WebApi.exe"
   )
   .build();
 
 connection.onDisconnect = () => {
-  console.log("lost");
+  console.log("ipc connection lost");
 };
 
-connection.send("greeting", "Mom", (response: any) => {
+connection.send("ipc-ack", "TestEasy-WebUI", (response: any) => {
   console.log(response);
-  connection.close();
+  //connection.close();
 });
 
 let window: BrowserWindow | null;

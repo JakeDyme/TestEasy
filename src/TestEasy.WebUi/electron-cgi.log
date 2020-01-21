@@ -1,0 +1,12 @@
+2020-01-20 19:48:19.987 +02:00 [ERR] 
+ElectronCgi.DotNet.NoRequestHandlerFoundException: No request handler found for request type: greeting
+   at ElectronCgi.DotNet.RequestExecutedChannelMessage.Send(IChannel channel)
+   at ElectronCgi.DotNet.MessageDispatcher.<>c__DisplayClass3_0.<<StartAsync>b__0>d.MoveNext()
+2020-01-20 19:54:56.885 +02:00 [ERR] 
+ElectronCgi.DotNet.NoRequestHandlerFoundException: No request handler found for request type: greeting
+   at ElectronCgi.DotNet.RequestExecutedChannelMessage.Send(IChannel channel)
+   at ElectronCgi.DotNet.MessageDispatcher.<>c__DisplayClass3_0.<<StartAsync>b__0>d.MoveNext()
+2020-01-20 19:59:45.020 +02:00 [ERR] 
+ElectronCgi.DotNet.NoRequestHandlerFoundException: No request handler found for request type: greeting
+   at ElectronCgi.DotNet.RequestExecutedChannelMessage.Send(IChannel channel)
+   at ElectronCgi.DotNet.MessageDispatcher.<>c__DisplayClass3_0.<<StartAsync>b__0>d.MoveNext()

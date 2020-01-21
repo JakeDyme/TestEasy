@@ -5,26 +5,19 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEasy.Actuators.ChromeDriver", "TestEasy.Actuators.ChromeDriver\TestEasy.Actuators.ChromeDriver.csproj", "{D9E00B7F-5C38-4A13-AC0E-B3D8B429BD5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEasy.Actuators.ChromeDriver.Tests", "TestEasy.Actuators.ChromeDriver.Tests\TestEasy.Actuators.ChromeDriver.Tests.csproj", "{A13943B8-B54E-42F9-93E1-B253C059C173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEasy.Actuators.ChromeDriver.Tests", "TestEasy.Actuators.ChromeDriver.Tests\TestEasy.Actuators.ChromeDriver.Tests.csproj", "{A13943B8-B54E-42F9-93E1-B253C059C173}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TestEasy.WebUi", "TestEasy.WebUi\", "{5D6BBB08-5D02-4BBA-AA70-1C0825C4421A}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_52805"
-		Debug.AspNetCompiler.PhysicalPath = "TestEasy.WebUi\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52805\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_52805"
-		Release.AspNetCompiler.PhysicalPath = "TestEasy.WebUi\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52805\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "52805"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEasy.WebApi", "TestEasy.WebApi\TestEasy.WebApi.csproj", "{B262AE81-1D34-44F9-AE33-24BF08AE8B65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEasy.Contracts", "TestEasy.Contracts\TestEasy.Contracts.csproj", "{1B7DE99C-59E6-450E-985C-ADD3BC01E3CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEasy.WebApi.Tests", "TestEasy.WebApi.Tests\TestEasy.WebApi.Tests.csproj", "{11E6E6A0-5ACE-4E58-877B-2EC2B464E2AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEasy.Data", "TestEasy.Data\TestEasy.Data.csproj", "{26C483C2-6D39-4FFA-A251-D5C9ED30FF50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{ED0AA72C-E270-4C23-A8D2-58762B56FE09}"
+	ProjectSection(SolutionItems) = preProject
+		Sources.md = Sources.md
 	EndProjectSection
 EndProject
 Global
@@ -41,10 +34,22 @@ Global
 		{A13943B8-B54E-42F9-93E1-B253C059C173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A13943B8-B54E-42F9-93E1-B253C059C173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A13943B8-B54E-42F9-93E1-B253C059C173}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D6BBB08-5D02-4BBA-AA70-1C0825C4421A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D6BBB08-5D02-4BBA-AA70-1C0825C4421A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D6BBB08-5D02-4BBA-AA70-1C0825C4421A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D6BBB08-5D02-4BBA-AA70-1C0825C4421A}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{B262AE81-1D34-44F9-AE33-24BF08AE8B65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B262AE81-1D34-44F9-AE33-24BF08AE8B65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B262AE81-1D34-44F9-AE33-24BF08AE8B65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B262AE81-1D34-44F9-AE33-24BF08AE8B65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B7DE99C-59E6-450E-985C-ADD3BC01E3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B7DE99C-59E6-450E-985C-ADD3BC01E3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B7DE99C-59E6-450E-985C-ADD3BC01E3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B7DE99C-59E6-450E-985C-ADD3BC01E3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11E6E6A0-5ACE-4E58-877B-2EC2B464E2AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E6E6A0-5ACE-4E58-877B-2EC2B464E2AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E6E6A0-5ACE-4E58-877B-2EC2B464E2AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E6E6A0-5ACE-4E58-877B-2EC2B464E2AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26C483C2-6D39-4FFA-A251-D5C9ED30FF50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C483C2-6D39-4FFA-A251-D5C9ED30FF50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26C483C2-6D39-4FFA-A251-D5C9ED30FF50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26C483C2-6D39-4FFA-A251-D5C9ED30FF50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

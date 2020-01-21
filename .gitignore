@@ -206,3 +206,7 @@ FakesAssemblies/
 
 # Docfx
 docs/manifest.json
+
+dist
+src/TestEasy.WebUi/backend
+src/TestEasy.WebUi/release-builds
