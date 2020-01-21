@@ -1,4 +1,4 @@
-﻿namespace TestEasy.Actuators.ChromeDriver.Contracts
+﻿namespace TestEasy.Contracts
 {
   public interface IActionReturnSchema
   {

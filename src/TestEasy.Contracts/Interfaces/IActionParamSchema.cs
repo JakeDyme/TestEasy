@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-namespace TestEasy.Actuators.ChromeDriver.Contracts
+namespace TestEasy.Contracts
 {
   public interface IActionParamSchema
   {
     string Name { get; set; }
     string Description { get; set; }
     ParamDataTypeEnum DataType { get; set; }
-    //bool Required { get; set; }
     string ParamGroup { get; set; }
     bool AllowMultipleValues { get; set;}
     int MaxNumberOfValues { get; set;}
