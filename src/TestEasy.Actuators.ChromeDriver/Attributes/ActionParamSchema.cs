@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestEasy.Actuators.ChromeDriver.Contracts;
+using TestEasy.Contracts;
 
 namespace TestEasy.Actuators.ChromeDriver.Attributes
 {
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-  public class ActionParam : Attribute, IActionParamSchema
+  public class ActionParamSchema : Attribute, IActionParamSchema
   {
     public string Name { get; set; }
     public string Description { get; set; }

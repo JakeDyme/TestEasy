@@ -1,24 +1,18 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestEasy.Actuators.ChromeDriver.Attributes;
-using TestEasy.Actuators.ChromeDriver.Contracts;
 using TestEasy.Actuators.ChromeDriver.Models;
+using TestEasy.Contracts;
 
 namespace TestEasy.Actuators.ChromeDriver.Services
 {
 
-  public class Environment
-  {
-    public IWebDriver WebDriver { get; set; }
-  }
-
   public class ActionsProvider : IActionsProvider
   {
-    private readonly Environment _environment;
+    private readonly IExecutionContext _environment;
 
-    public ActionsProvider(Environment environment) 
+    public ActionsProvider(IExecutionContext environment) 
     {
       _environment = environment;
     }
@@ -33,7 +27,7 @@ namespace TestEasy.Actuators.ChromeDriver.Services
       var result = action.Invoke(actionsEnvironment, args);
     }
 
-    public IEnumerable<ActionType> GetActions()
+    public IEnumerable<IActionType> GetActions()
     {
       var ignoreTheseIntrinsicMethods = new[] { "GetType" };
       Type actionsCollectionClass = typeof(Actions);
@@ -46,7 +40,7 @@ namespace TestEasy.Actuators.ChromeDriver.Services
         newAction.Name = method.Name;
         var atts = method.GetCustomAttributes(true);
         newAction.ParamSchemas = atts
-          .Where(a => a.GetType() == typeof(ActionParam))
+          .Where(a => a.GetType() == typeof(ActionParamSchema))
           .Select(a => a as IActionParamSchema)
           .ToList();
         actionsCollection.Add(newAction);

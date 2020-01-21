@@ -1,39 +1,21 @@
 ﻿using OpenQA.Selenium;
 using TestEasy.Actuators.ChromeDriver.Attributes;
-using TestEasy.Actuators.ChromeDriver.Contracts;
+using TestEasy.Contracts;
 
 namespace TestEasy.Actuators.ChromeDriver.Services
 {
-  public interface IActionResult
-  {
-
-  }
-  public interface IActionType
-  {
-
-  }
-
-  public interface IActionParamValue
-  {
-
-  }
-
-  public interface IActionsProvider
-  {
-    public void ExecuteAction(string actionName, params dynamic[] args);
-  }
 
   public class Actions
   {
 
-    private readonly Environment _environment;
+    private readonly ExecutionContext _environment;
 
-    public Actions(Environment environment) {
-      _environment = environment;
+    public Actions(IExecutionContext environment) {
+      _environment = environment as ExecutionContext;
     }
 
     [ActionDescription("Launches a url in the browser window. Must start with http:// or https://")]
-    [ActionParam(Name = "Url", DataType = ParamDataTypeEnum.url)]
+    [ActionParamSchema(Name = "Url", DataType = ParamDataTypeEnum.url)]
     public void LaunchUrl(string url)
     {
       _environment.WebDriver.Url = url;

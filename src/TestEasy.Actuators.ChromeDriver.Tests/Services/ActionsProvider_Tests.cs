@@ -16,7 +16,7 @@ namespace TestEasy.Actuators.ChromeDriver.Tests.Services
     [Test]
     public void GetActions_GivenNothing_ExpectActions()
     {
-      var environment = new Environment();
+      var environment = new ExecutionContext();
       var sut = new ActionsProvider(environment);
       var actions = sut.GetActions();
       var actionNames = actions.Select(a => a.Name).ToList();
@@ -26,7 +26,7 @@ namespace TestEasy.Actuators.ChromeDriver.Tests.Services
     [Test]
     public void ExecuteAction_GivenName_ExpectBrowserOpen()
     {
-      var environment = new Environment();
+      var environment = new ExecutionContext();
       var driverDir = $"{Directory.GetCurrentDirectory()}\\ChromeDriver";;
       environment.WebDriver = new OpenQA.Selenium.Chrome.ChromeDriver(driverDir);
 

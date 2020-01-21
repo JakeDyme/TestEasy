@@ -1,5 +1,5 @@
 ﻿using System;
-using TestEasy.Actuators.ChromeDriver.Contracts;
+using TestEasy.Contracts;
 
 namespace TestEasy.Actuators.ChromeDriver.Attributes
 {
