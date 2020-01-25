@@ -19,7 +19,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
-const SECTION_ITEMS_ENDPOINT = "https://jsonplaceholder.typicode.com/users";
+const SECTION_ITEMS_ENDPOINT = "https://localhost:5001/view/actions";
 
 const columnsHeaders = [
   {

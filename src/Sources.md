@@ -13,3 +13,8 @@ https://itnext.io/4-solutions-to-run-multiple-node-js-or-npm-commands-simultaneo
 Electron failing to build because of src-type elements using relative references. Solution:
 --------------------------------------------------------------------------------------------
 https://github.com/electron/electron/issues/2242#issuecomment-299645388
+
+Redux Tutorial
+--------------
+https://www.youtube.com/watch?v=CVpUuw9XSjY
+
