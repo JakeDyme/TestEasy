@@ -8,9 +8,9 @@ namespace TestEasy.WebApi.Controllers
 	[ApiController]
 	public class ActionsController: ControllerBase
 	{
-		private readonly IActionsService _actionsService;
+		private readonly IActionService _actionsService;
 
-		public ActionsController(IActionsService actionsService) {
+		public ActionsController(IActionService actionsService) {
 			_actionsService = actionsService;
 		}
 
@@ -18,7 +18,7 @@ namespace TestEasy.WebApi.Controllers
 		[HttpGet]
 		public ActionResult<IEnumerable<ActionView>> GetActions()
 		{
-			var actions = _actionsService.GetActions();
+			var actions = _actionsService.GetAll();
 			return Ok(actions);
 		}
 

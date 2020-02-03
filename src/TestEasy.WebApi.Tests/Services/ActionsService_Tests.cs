@@ -13,8 +13,8 @@ namespace TestEasy.WebApi.Tests.Services
     {
       var environment = new ExecutionContext();
       var actionsProvider = new ActionsProvider(environment);
-      var sut = new ActionsService(actionsProvider);
-      var actions = sut.GetActions();
+      var sut = new ActionService(actionsProvider);
+      var actions = sut.GetAll();
       var actionNames = actions.Select(a => a.Name).ToList();
       CollectionAssert.Contains(actionNames, "LaunchUrl");
     }
