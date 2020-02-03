@@ -19,6 +19,8 @@ namespace TestEasy.WebApi
       Configuration = configuration;
     }
 
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
     public IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
@@ -29,10 +31,18 @@ namespace TestEasy.WebApi
         options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
       });
 
-
       services.AddScoped<IExecutionContext, ExecutionContext>();
       services.AddScoped<IActionsProvider, ActionsProvider>();
-      services.AddScoped<IActionsService, ActionsService>();
+      services.AddScoped<IActionService, ActionService>();
+
+      services.AddCors(options =>
+      {
+        options.AddPolicy(MyAllowSpecificOrigins,
+        builder =>
+        {
+          builder.WithOrigins("http://localhost:3000");
+        });
+      });
 
       services.AddControllers();
 
@@ -51,6 +61,8 @@ namespace TestEasy.WebApi
       app.UseRouting();
 
       app.UseAuthorization();
+
+      app.UseCors(MyAllowSpecificOrigins);
 
       app.UseEndpoints(endpoints =>
       {
