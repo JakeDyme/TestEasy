@@ -5,7 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-
+import SectionEditor from "./SectionEditor"
 const useStyles = makeStyles({
   card: {
     minWidth: 300
@@ -26,8 +26,19 @@ const useStyles = makeStyles({
 const SectionHeader = props => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
+    <React.Fragment>
+    <SectionEditor handleClose={ handleClose } open={open}></SectionEditor>
     <Card className={classes.card}>
       <CardContent>
         {/* <Typography
@@ -40,7 +51,9 @@ const SectionHeader = props => {
         <Typography variant="h5" component="h2">
           Scenarios
         </Typography>
-        <Button size="small">Create New</Button>
+        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Create New
+        </Button>
         {/* <Typography className={classes.pos} color="textSecondary">
           adjective
         </Typography>
@@ -52,6 +65,7 @@ const SectionHeader = props => {
       </CardContent>
       <CardActions></CardActions>
     </Card>
+    </React.Fragment>
   );
 };
 

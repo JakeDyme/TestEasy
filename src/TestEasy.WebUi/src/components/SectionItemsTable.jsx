@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -18,15 +17,16 @@ import SectionItem from "./SectionItem";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-
-const SECTION_ITEMS_ENDPOINT = "https://localhost:5001/view/actions";
+import { useSelector, useDispatch } from "react-redux"
+//import { SetActionsList } from '../actions'
+import fetchActions from '../services/testActionsService';
 
 const columnsHeaders = [
   {
     id: "name",
     label: "Name",
-    minWidth: 170,
-    align: "right",
+    minWidth: 10,
+    align: "left",
     format: value => value.toLocaleString()
   }
   // {
@@ -99,7 +99,7 @@ const useStyles = makeStyles({
     padding: 0
   },
   root: {
-    width: "100%"
+    width: "100%",
   },
   container: {
     
@@ -108,6 +108,9 @@ const useStyles = makeStyles({
 });
 
 const SectionItemsTable = props => {
+  const testActions = useSelector(state => state.testActions)
+  //const dispatch = useDispatch();
+
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -122,22 +125,7 @@ const SectionItemsTable = props => {
     };
   }
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setData({ items: data.items, isFetching: false });
-        const response = await axios.get(SECTION_ITEMS_ENDPOINT);
-        setData({
-          items: response.data.map(d => toEditable(d)),
-          isFetching: false
-        });
-      } catch (e) {
-        console.log(e);
-        setData({ items: data.items, isFetching: false });
-      }
-    };
-    fetchUsers();
-  }, []);
+  useEffect(fetchActions, []);
 
   const handleExpandRow = panel => {
     setExpanded(expanded == panel ? false : panel);
@@ -163,7 +151,7 @@ const SectionItemsTable = props => {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              {columnsHeaders.map(column => (
+              { columnsHeaders.map(column => (
                 <TableCell
                   key={column.id}
                   align={column.align}
@@ -175,13 +163,13 @@ const SectionItemsTable = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.items
+            { testActions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(row => {
                 return (
-                  <React.Fragment>
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                      <TableCell key={0}>
+                  <React.Fragment key={'frag-' + row.id}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={'tr-' + row.id}>
+                      <TableCell style={{ width:30, padding:5, margin:5 }} key={'tc-' + row.id + ':1'}>
                         <IconButton
                           onClick={event =>
                             handleExpandRow("panel" + row.id, event)
@@ -199,7 +187,7 @@ const SectionItemsTable = props => {
                       {columnsHeaders.map(column => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align}>
+                          <TableCell key={'header' + row.id + ':' + column.id} align={column.align}>
                             {column.format && typeof value === "number"
                               ? column.format(value)
                               : value}
@@ -207,7 +195,7 @@ const SectionItemsTable = props => {
                         );
                       })}
                     </TableRow>
-                    <TableRow>
+                    <TableRow key={'tr-expand-' + row.id}>
                       <TableCell className={classes.expanableRow} colSpan={6}>
                         <ExpansionPanel
                           key={"exp" + row.id}
@@ -235,7 +223,7 @@ const SectionItemsTable = props => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={data.items.length}
+        count={testActions.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}

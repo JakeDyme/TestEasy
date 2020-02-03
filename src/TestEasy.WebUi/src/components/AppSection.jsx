@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SectionItemsContainer from "./SectionItemsContainer";
 import SectionHeader from "./SectionHeader";
 import SectionItemsTable from "./SectionItemsTable";
 import Card from "@material-ui/core/Card";

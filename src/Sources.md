@@ -19,3 +19,7 @@ Redux Tutorial
 --------------
 https://www.youtube.com/watch?v=CVpUuw9XSjY
 
+The Flux Pattern
+----------------
+https://www.freecodecamp.org/news/an-introduction-to-the-flux-architectural-pattern-674ea74775c9/
+
