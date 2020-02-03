@@ -25,8 +25,9 @@ namespace TestEasy.WebApi
     public void ConfigureServices(IServiceCollection services)
     {
 
-      services.AddDbContext<TestEasyDbContext>(options =>
-              options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+      services.AddDbContext<TestEasyDbContext>(options => {
+        options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+      });
 
 
       services.AddScoped<IExecutionContext, ExecutionContext>();

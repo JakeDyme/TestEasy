@@ -210,3 +210,6 @@ docs/manifest.json
 dist
 src/TestEasy.WebUi/backend
 src/TestEasy.WebUi/release-builds
+
+#Database
+TestEasy.db

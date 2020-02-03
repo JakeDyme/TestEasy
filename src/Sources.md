@@ -5,6 +5,7 @@ https://itnext.io/create-desktop-with-electron-react-and-c-86f9765809b7
 Wiring up Entity Framework
 --------------------------
 https://elanderson.net/2019/11/asp-net-core-3-add-entity-framework-core-to-existing-project/
+https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet
 
 Run multiple NPM scripts at once
 ----------------------------------
