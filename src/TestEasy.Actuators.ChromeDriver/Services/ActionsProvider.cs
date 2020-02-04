@@ -19,18 +19,18 @@ namespace TestEasy.Actuators.ChromeDriver.Services
 
     public void ExecuteAction(string actionName, params dynamic[] args )
     {
-      Type actionsCollectionClass = typeof(Actions);
+      Type actionsCollectionClass = typeof(BasicActions);
       var methods = actionsCollectionClass.GetMethods();
       var action = methods.FirstOrDefault(m => m.Name == actionName);
       if (action == null) throw new NullReferenceException($"The action \"{actionName}\" does not exist");
-      var actionsEnvironment = new Actions(_environment);
+      var actionsEnvironment = new BasicActions(_environment);
       var result = action.Invoke(actionsEnvironment, args);
     }
 
     public IEnumerable<IActionType> GetActions()
     {
-      var ignoreTheseIntrinsicMethods = new[] { "GetType" };
-      Type actionsCollectionClass = typeof(Actions);
+      var ignoreTheseIntrinsicMethods = new[] { "GetType", "ToString", "Equals", "GetHashCode" };
+      Type actionsCollectionClass = typeof(BasicActions);
       var methods = actionsCollectionClass.GetMethods();
       var actionsCollection = new List<ActionType>();
       foreach (var method in methods)
