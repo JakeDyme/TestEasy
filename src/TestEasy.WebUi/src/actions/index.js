@@ -12,6 +12,13 @@ export const decrement = () => {
     }
 }
 
+export const FetchingActionsList = (fetching) =>{
+    return {
+        type: 'SET_FETCHING_ACTIONS',
+        payload: fetching
+    }
+}
+
 export const SetActionsList = (testActionList) => {
     return {
         type: 'SET_ACTIONS',

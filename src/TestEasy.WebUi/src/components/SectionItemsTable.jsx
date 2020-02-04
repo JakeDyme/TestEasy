@@ -18,8 +18,9 @@ import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { useSelector, useDispatch } from "react-redux"
-//import { SetActionsList } from '../actions'
-import fetchActions from '../services/testActionsService';
+import { SetActionsList, FetchingActionsList } from '../actions'
+import fetchActions from '../services/useFetchActions';
+import axios from "axios";
 
 const columnsHeaders = [
   {
@@ -109,7 +110,7 @@ const useStyles = makeStyles({
 
 const SectionItemsTable = props => {
   const testActions = useSelector(state => state.testActions)
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
@@ -125,7 +126,21 @@ const SectionItemsTable = props => {
     };
   }
 
-  useEffect(fetchActions, []);
+  //useEffect(fetchActions(),[]);
+
+  useEffect(() => {
+    setData({ isFetching: true });
+    dispatch(FetchingActionsList(true));
+    axios.get("https://localhost:5001/view/actions").then((response) => {
+      let editableTestActions = response.data.map(d => toEditable(d));
+      dispatch(SetActionsList(response.data));
+      dispatch(FetchingActionsList(false));
+      setData({
+        items: editableTestActions,
+        isFetching: false
+      });
+    });
+  }, []);
 
   const handleExpandRow = panel => {
     setExpanded(expanded == panel ? false : panel);

@@ -3,14 +3,20 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import allReducers from './reducers';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
+const devToolsStoreMiddleware = () => { 
+    return window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+} 
+const storeMiddlewares = [devToolsStoreMiddleware];
 const myStore = createStore(
     allReducers, 
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    );
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    //applyMiddleware(...storeMiddlewares)
+);
 
 ReactDOM.render(
 <Provider store={ myStore }>
