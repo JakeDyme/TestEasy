@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 // Reducers...
-import counterReducer from './counter';
-import testActionsReducer from './testActions';
+import testActionsReducer from './testActionsReducer';
 
 const testsReducer = (state = [], actionObject) => {
     switch(actionObject.type){
@@ -32,14 +31,11 @@ const fetchingActionsReducer = (state = false, actionObject) => {
 }
 
 const allReducers = combineReducers({
-    counter: counterReducer,
     tests: testsReducer,
     setups: setupsReducer,
     routines: routinesReducer,
     testActions: testActionsReducer,
-    fetchingActions: fetchingActionsReducer
+    fetchingActions: fetchingActionsReducer,
 })
 
 export default allReducers;
-
-//export const getActions = state => state.testActions;

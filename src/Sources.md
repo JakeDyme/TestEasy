@@ -23,3 +23,7 @@ The Flux Pattern
 ----------------
 https://www.freecodecamp.org/news/an-introduction-to-the-flux-architectural-pattern-674ea74775c9/
 
+Redux and Async API calls (introducing "thunk")
+------------------------------------------------
+https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
+https://thecodebarbarian.com/async-await-with-react-and-redux-thunk.html

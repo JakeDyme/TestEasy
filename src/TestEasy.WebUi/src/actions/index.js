@@ -1,17 +1,4 @@
 
-export const increment = (someNumber) => {
-    return {
-        type: 'INCREMENT',
-        payload: someNumber
-    }
-}
-
-export const decrement = () => {
-    return {
-        type: 'DECREMENT'
-    }
-}
-
 export const FetchingActionsList = (fetching) =>{
     return {
         type: 'SET_FETCHING_ACTIONS',

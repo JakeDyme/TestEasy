@@ -17,10 +17,8 @@ import SectionItem from "./SectionItem";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import { useSelector, useDispatch } from "react-redux"
-import { SetActionsList, FetchingActionsList } from '../actions'
-import fetchActions from '../services/useFetchActions';
-import axios from "axios";
+import { useSelector, useDispatch, connect } from "react-redux";
+import { loadActions } from '../actions/testActionsAction';
 
 const columnsHeaders = [
   {
@@ -109,7 +107,7 @@ const useStyles = makeStyles({
 });
 
 const SectionItemsTable = props => {
-  const testActions = useSelector(state => state.testActions)
+  const testActions = useSelector(state => state.testActions);
   const dispatch = useDispatch();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -126,21 +124,23 @@ const SectionItemsTable = props => {
     };
   }
 
-  //useEffect(fetchActions(),[]);
-
   useEffect(() => {
-    setData({ isFetching: true });
-    dispatch(FetchingActionsList(true));
-    axios.get("https://localhost:5001/view/actions").then((response) => {
-      let editableTestActions = response.data.map(d => toEditable(d));
-      dispatch(SetActionsList(response.data));
-      dispatch(FetchingActionsList(false));
-      setData({
-        items: editableTestActions,
-        isFetching: false
-      });
-    });
-  }, []);
+    dispatch(loadActions());
+  },[loadActions]);
+
+  // useEffect(() => {
+  //   setData({ isFetching: true });
+  //   dispatch(FetchingActionsList(true));
+  //   axios.get("https://localhost:5001/view/actions").then((response) => {
+  //     let editableTestActions = response.data.map(d => toEditable(d));
+  //     dispatch(SetActionsList(response.data));
+  //     dispatch(FetchingActionsList(false));
+  //     setData({
+  //       items: editableTestActions,
+  //       isFetching: false
+  //     });
+  //   });
+  // }, []);
 
   const handleExpandRow = panel => {
     setExpanded(expanded == panel ? false : panel);
@@ -159,6 +159,12 @@ const SectionItemsTable = props => {
     setPage(0);
   };
 
+  if (testActions.loading) {
+    return <div>Loading</div>
+  }
+  if (testActions.error) {
+      return <div style={{ color: 'red' }}>ERROR: {testActions.error}</div>
+  }
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -178,7 +184,7 @@ const SectionItemsTable = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            { testActions
+            { testActions.items
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(row => {
                 return (
@@ -238,7 +244,7 @@ const SectionItemsTable = props => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={testActions.length}
+        count={testActions.items.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
@@ -247,5 +253,18 @@ const SectionItemsTable = props => {
     </Paper>
   );
 };
+
+// const mapStateToProps = state => ({
+//   data: state.reduxThunk.data,
+//   loading: state.reduxThunk.loading,
+//   error: state.reduxThunk.error,
+// });
+// const mapDispatchToProps = {
+//   loadUsers
+// };
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(SectionItemsTable);
 
 export default SectionItemsTable;

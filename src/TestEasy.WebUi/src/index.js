@@ -3,19 +3,18 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { applyMiddleware, createStore } from 'redux';
+import { compose, applyMiddleware, createStore } from 'redux';
 import allReducers from './reducers';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger'
 
-const devToolsStoreMiddleware = () => { 
-    return window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-} 
-const storeMiddlewares = [devToolsStoreMiddleware];
 const myStore = createStore(
-    allReducers, 
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    //applyMiddleware(...storeMiddlewares)
+    allReducers,
+    compose(
+        applyMiddleware(thunk, logger),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      ) 
 );
 
 ReactDOM.render(
