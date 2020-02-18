@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import TopBar from "./components/navigation/TopBar";
 import LeftSideBar from "./components/navigation/LeftSideBar";
-import AppSectionContainer from "./components/AppSectionContainer";
+import AppSectionContainer from "./components/AppSection/AppSectionContainer";
 const leftbarOpenSize = 245;
 const leftbarClosedSize = 80;
 const topbarheight = 69;

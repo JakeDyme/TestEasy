@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AppSection from "./AppSection";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const AppSectionContainer = props => {
   const { height, width } = useWindowDimensions();

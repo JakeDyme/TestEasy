@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex"
   },
-
   menuButton: {
     marginRight: 36
   },

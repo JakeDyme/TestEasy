@@ -1,5 +1,5 @@
 
-import {LOAD_ACTIONS_LOADING, LOAD_ACTIONS, LOAD_ACTIONS_ERROR} from '../actions/commonEntityActions'
+import {LOAD_SETUPS_LOADING, LOAD_SETUPS, LOAD_SETUPS_ERROR} from '../actions/commonEntityActions'
 
 const initialState = {
     items: [],
@@ -7,22 +7,22 @@ const initialState = {
     error: ''
  };
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch(action.type){
-        case LOAD_ACTIONS_LOADING: {
+        case LOAD_SETUPS_LOADING: {
             return {
                 ...state,
                 loading: true,
                 error:''
             };
         }
-        case LOAD_ACTIONS: 
+        case LOAD_SETUPS: 
            return {
                ...state,
                items: action.data,
                loading: false
            }
-        case LOAD_ACTIONS_ERROR:
+        case LOAD_SETUPS_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -32,3 +32,5 @@ export default (state = initialState, action) => {
             return state;
     }
 }
+
+export default reducer;

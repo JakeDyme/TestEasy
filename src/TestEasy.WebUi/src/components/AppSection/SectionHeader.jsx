@@ -5,7 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import SectionEditor from "./SectionEditor"
+import SectionEditor from "./SectionEditor/SectionEditor"
 const useStyles = makeStyles({
   card: {
     minWidth: 300
@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 
 const SectionHeader = props => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -49,7 +48,7 @@ const SectionHeader = props => {
           Word of the Day
         </Typography> */}
         <Typography variant="h5" component="h2">
-          Scenarios
+          Tests
         </Typography>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
           Create New

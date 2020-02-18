@@ -16,9 +16,20 @@ import Typography from "@material-ui/core/Typography";
 import SectionItem from "./SectionItem";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import MenuIcon from "@material-ui/icons/MoreHoriz";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import { useSelector, useDispatch, connect } from "react-redux";
-import { loadActions } from '../actions/testActionsAction';
+
+import { getAllEntities } from '../../actions/commonEntityActions';
+import { LOAD_TESTS, LOAD_SETUPS, LOAD_ROUTINES, LOAD_ACTIONS } from '../../actions/commonEntityActions';
+import sectionTypeEnum from '../../enums/sectionTypeEnum';
+
 
 const columnsHeaders = [
   {
@@ -101,47 +112,36 @@ const useStyles = makeStyles({
     width: "100%",
   },
   container: {
-    
     //maxHeight: 440
   }
 });
 
-const SectionItemsTable = props => {
-  const testActions = useSelector(state => state.testActions);
-  const dispatch = useDispatch();
 
-  const [expanded, setExpanded] = React.useState(false);
+//===========================================================================================
+
+const SectionItemsTable = props => {
+  // Local redefinitions...
+  const dispatch = useDispatch();
   const classes = useStyles();
+  
+  // Global state...
+  const testActions = useSelector(state => state.testActions);
+  const currentSection = useSelector(state => state.currentSection);
+
+  // Local state...
+  const [expanded, setExpanded] = React.useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [isCtxMenuOpen, setCtxMenuOpen] = React.useState(null);
 
-  const [data, setData] = useState({ items: [], isFetching: false });
+  // Local handlers...
+  const handleCtxMenuClick = event => {
+    setCtxMenuOpen(event.currentTarget);
+  };
 
-  function toEditable(sectionItem) {
-    return {
-      id: sectionItem.id,
-      name: sectionItem.name
-    };
-  }
-
-  useEffect(() => {
-    dispatch(loadActions());
-  },[loadActions]);
-
-  // useEffect(() => {
-  //   setData({ isFetching: true });
-  //   dispatch(FetchingActionsList(true));
-  //   axios.get("https://localhost:5001/view/actions").then((response) => {
-  //     let editableTestActions = response.data.map(d => toEditable(d));
-  //     dispatch(SetActionsList(response.data));
-  //     dispatch(FetchingActionsList(false));
-  //     setData({
-  //       items: editableTestActions,
-  //       isFetching: false
-  //     });
-  //   });
-  // }, []);
-
+  const handleCtxMenuClose = () => {
+    setCtxMenuOpen(null);
+  };
   const handleExpandRow = panel => {
     setExpanded(expanded == panel ? false : panel);
   };
@@ -159,18 +159,35 @@ const SectionItemsTable = props => {
     setPage(0);
   };
 
+  // Data Formatters...
+  function toEditable(sectionItem) {
+    return {
+      id: sectionItem.id,
+      name: sectionItem.name
+    };
+  }
+
+  // Initializers...
+  useEffect(() => {
+    dispatch(getAllEntities(props.sectionType));
+  },[getAllEntities]);
+
+  // Renders...
   if (testActions.loading) {
     return <div>Loading</div>
   }
+
   if (testActions.error) {
       return <div style={{ color: 'red' }}>ERROR: {testActions.error}</div>
   }
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell></TableCell>
               { columnsHeaders.map(column => (
                 <TableCell
@@ -203,6 +220,24 @@ const SectionItemsTable = props => {
                             <ExpandMoreIcon />
                           )}
                         </IconButton>
+                      </TableCell>
+                      <TableCell style={{ width:30, padding:5, margin:5 }} key={'tc-' + row.id + ':1'}>
+                        <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleCtxMenuClick}>
+                          <MenuIcon/>
+                        </IconButton>
+                        <Menu
+                          id="simple-menu"
+                          anchorEl={isCtxMenuOpen}
+                          keepMounted
+                          open={Boolean(isCtxMenuOpen)}
+                          onClose={handleCtxMenuClose}
+                        >
+                          <MenuItem onClick={handleCtxMenuClose}><EditIcon/>Edit</MenuItem>
+                          <MenuItem onClick={handleCtxMenuClose}><DeleteIcon/>Delete</MenuItem>
+                          
+                        </Menu>
+
+
                       </TableCell>
 
                       {columnsHeaders.map(column => {

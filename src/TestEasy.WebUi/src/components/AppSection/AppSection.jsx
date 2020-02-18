@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import SectionHeader from "./SectionHeader";
-import SectionItemsTable from "./SectionItemsTable";
+import SectionItemsContainer from "./SectionItemsContainer";
 import Card from "@material-ui/core/Card";
+import sectionTypeEnum from '../../enums/sectionTypeEnum';
 
 const AppSection = props => {
   const sectionItems = [
@@ -18,7 +19,7 @@ const AppSection = props => {
     <React.Fragment>
       <SectionHeader />
       <Card style={dataTableStyles}>
-        <SectionItemsTable items={sectionItems} />;
+        <SectionItemsContainer items={sectionItems} sectionType={sectionTypeEnum.ACTIONS}/>;
       </Card>
     </React.Fragment>
   );

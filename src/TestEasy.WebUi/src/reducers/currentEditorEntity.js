@@ -1,28 +1,30 @@
 
-import {LOAD_ACTIONS_LOADING, LOAD_ACTIONS, LOAD_ACTIONS_ERROR} from '../actions/commonEntityActions'
+import {LOAD_CURRENT_EDITOR_ENTITY_LOADING, LOAD_CURRENT_EDITOR_ENTITY, LOAD_CURRENT_EDITOR_ENTITY_ERROR} from '../actions/commonEntityActions'
 
 const initialState = {
-    items: [],
+    name: null,
+    fields: [],
+    actions: [],
     loading: false,
     error: ''
  };
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch(action.type){
-        case LOAD_ACTIONS_LOADING: {
+        case LOAD_CURRENT_EDITOR_ENTITY_LOADING: {
             return {
                 ...state,
                 loading: true,
                 error:''
             };
         }
-        case LOAD_ACTIONS: 
+        case LOAD_CURRENT_EDITOR_ENTITY: 
            return {
                ...state,
                items: action.data,
                loading: false
            }
-        case LOAD_ACTIONS_ERROR:
+        case LOAD_CURRENT_EDITOR_ENTITY_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -32,3 +34,5 @@ export default (state = initialState, action) => {
             return state;
     }
 }
+
+export default reducer;

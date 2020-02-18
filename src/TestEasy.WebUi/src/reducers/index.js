@@ -1,41 +1,39 @@
 import { combineReducers } from 'redux';
 // Reducers...
 import testActionsReducer from './testActionsReducer';
+import testsReducer from './testsReducer';
+import routinesReducer from './routinesReducer';
+import setupsReducer from './setupsReducer';
+import sectionTypeEnum from '../enums/sectionTypeEnum'
 
-const testsReducer = (state = [], actionObject) => {
-    switch(actionObject.type){
-        case 'SET_TESTS': return state = actionObject.payload;
+const initialState = {
+    testActions: [],
+    tests: [],
+    setups: [],
+    routines: [],
+    currentSectionType: sectionTypeEnum.TEST,
+    currentEntity: null,
+ };
+
+const currentEditorEntityReducer = (state = initialState, action) => {
+    switch(action.type){
+        case 'SET_CURRENT_ENTITY': return state.currentEntity = action.payload;
         default: return state;
     }
 }
 
-const routinesReducer = (state = [], actionObject) => {
-    switch(actionObject.type){
-        case 'SET_ROUTINES': return state = actionObject.payload;
-        default: return state;
-    }
-}
-
-const setupsReducer = (state = [], actionObject) => {
-    switch(actionObject.type){
-        case 'SET_SETUPS': return state = actionObject.payload;
-        default: return state;
-    }
-}
-
-const fetchingActionsReducer = (state = false, actionObject) => {
-    switch(actionObject.type){
-        case 'SET_FETCHING_ACTIONS': return state = actionObject.payload;
+const currentSectionTypeReducer = (state = initialState, action) => {
+    switch(action.type){
+        case 'SET_CURRENT_SECTION_TYPE': return state.currentSectionType = action.payload;
         default: return state;
     }
 }
 
 const allReducers = combineReducers({
+    testActions: testActionsReducer,
     tests: testsReducer,
     setups: setupsReducer,
-    routines: routinesReducer,
-    testActions: testActionsReducer,
-    fetchingActions: fetchingActionsReducer,
+    routines: routinesReducer
 })
 
 export default allReducers;
