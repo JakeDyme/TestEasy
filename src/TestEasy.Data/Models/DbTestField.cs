@@ -2,7 +2,7 @@
 
 namespace TestEasy.Data.Models
 {
-	public class DbTestAction
+	public class DbTestField
 	{
 		public int Id { get; set; }
 		public int OrderIndex { get; set; }
@@ -10,10 +10,11 @@ namespace TestEasy.Data.Models
 		public int DbTestId { get; set; }
 		public DbTest DbTest { get; set;}
 
-		public int DbActionId { get; set; }
-		public DbTestAction DbParentTestAction { get; set; }
+		public int DbFieldId { get; set; }
+		public DbField DbField { get; set; }
 
-		public int? DbParentTestActionId { get; set; }
+		public int? DbParentTestFieldId { get; set; }
+		public DbTestField DbParentTestField { get; set; }
 		public virtual IEnumerable<DbTestAction> DbChildTestActions { get; set; }
 	}
 

@@ -10,10 +10,17 @@ namespace TestEasy.Data
 		{
 		}
 
-		public DbSet<DbAction> DbActions { get; set; }
 		public DbSet<DbTest> DbTest { get; set; }
 		public DbSet<DbSetup> DbSetup { get; set; }
 		public DbSet<DbRoutine> DbRoutine { get; set; }
+		public DbSet<DbAction> DbAction { get; set; }
+		public DbSet<DbField> DbField { get; set; }
+
+		public DbSet<DbTestAction> DbTestAction { get; set; }
+		public DbSet<DbTestActionParameter> DbTestActionParameter { get; set; }
+
+		public DbSet<DbTestField> DbTestField { get; set; }
+		public DbSet<DbTestFieldParameter> DbTestFieldParameter { get; set; }
 
 	}
 }
