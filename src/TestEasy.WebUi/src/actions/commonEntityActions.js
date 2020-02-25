@@ -1,6 +1,8 @@
 import { getDataFromApi } from "../services/apiService"
 import sectionTypeEnum from '../enums/sectionTypeEnum'
-
+import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { setCurrentEntityItems } from '../actions'
 export const LOAD_TESTS = 'LOAD_TESTS';
 export const LOAD_TESTS_LOADING = 'LOAD_TESTS_LOADING';
 export const LOAD_TESTS_ERROR = 'LOAD_TESTS_ERROR';
@@ -16,6 +18,10 @@ export const LOAD_ROUTINES_ERROR = 'LOAD_ROUTINES_ERROR';
 export const LOAD_ACTIONS = 'LOAD_ACTIONS';
 export const LOAD_ACTIONS_LOADING = 'LOAD_ACTIONS_LOADING';
 export const LOAD_ACTIONS_ERROR = 'LOAD_ACTIONS_ERROR';
+
+export const LOAD_ENTITIES = 'LOAD_ENTITIES';
+export const LOAD_ENTITIES_LOADING = 'LOAD_ENTITIES_LOADING';
+export const LOAD_ENTITIES_ERROR = 'LOAD_ENTITIES_ERROR';
 
 function getAllEndpointMapping(sectionTypeEnumValue){
     switch (sectionTypeEnumValue) {
@@ -129,26 +135,59 @@ function saveEndpointMapping(sectionTypeEnumValue){
     }
 }
 
-function httpRequest(endpointData, entityId, dispatch) {
+export const httpRequest = async (endpointData, dispatch, entityIdIfAny, entityIfAny) => {
     if (endpointData.loadingActionType) dispatch({ type: endpointData.loadingActionType });
-    let url = endpointData.url.replace('{id}', entityId);
-    getDataFromApi(url, endpointData.method)
+    if (endpointData.loadingActionType) dispatch({ type: LOAD_ENTITIES_LOADING });
+    let url = endpointData.url.replace('{id}', entityIdIfAny);
+    return getDataFromApi(url, endpointData.method, entityIfAny)
         .then(response => response.json())
         .then(
             data => {
                 dispatch({ type: endpointData.getActionType, data })
+                dispatch({ type: LOAD_ENTITIES, data })
+                return data;
             },
             error => {
                 if (!endpointData.errorActionType) throw(error); 
-                dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' })
+                dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' });
+                dispatch({ type: LOAD_ENTITIES_ERROR, error: error.message || 'Unexpected Error!!!' });
+                throw error;
             }
         )
  };
 
- export const getAllEntities = (entityActionTypeEnumValue, entityIdIfAny) => dispatch => {
-        let endpointData = getAllEndpointMapping(entityActionTypeEnumValue);
-        httpRequest(endpointData, entityIdIfAny, dispatch) 
+ export const getAllEntities = () => (dispatch, selector) => {
+    const currentState = selector((state) => state);
+    let currentSectionType = currentState.currentSectionType;
+    let endpointData = getAllEndpointMapping(currentSectionType);
+    httpRequest(endpointData, dispatch)
+        .then((data) => {
+            dispatch(setCurrentEntityItems(data))
+    });
  }
+
+ export const saveCurrentEntity = () => (dispatch, selector) => {
+    const currentState = selector((state) => state);
+    let currentSectionType = currentState.currentSectionType;
+    let currentEditorEntity = currentState.currentEditorEntity;
+    let endpointData = saveEndpointMapping(currentSectionType);
+    httpRequest(endpointData, dispatch, null, currentEditorEntity)
+}
+
+export const getEntity = (entityId) => (dispatch, selector) => {
+    const currentState = selector((state) => state);
+    let currentSectionType = currentState.currentSectionType;
+    let endpointData = getByIdEndpointMapping(currentSectionType);
+    httpRequest(endpointData, dispatch, entityId, null)
+}
+
+export const deleteEntity = (entityId) => (dispatch, selector) => {
+    const currentState = selector((state) => state);
+    let currentSectionType = currentState.currentSectionType;
+    let endpointData = deleteEndpointMapping(currentSectionType);
+    httpRequest(endpointData, dispatch, entityId, null)
+}
+
 // export const getAllEntities = (entityActionTypeEnumValue) => dispatch => {
 //    let endpointData = getAllEndpointMapping(entityActionTypeEnumValue);
 //    if (endpointData.loadingActionType) dispatch({ type: endpointData.loadingActionType });

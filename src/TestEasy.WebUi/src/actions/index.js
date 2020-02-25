@@ -47,3 +47,10 @@ export const SetCurrentEntity = (currentEntity) => {
         payload: currentEntity
     }
 }
+
+export const setCurrentEntityItems = (currentEntityItems) => {
+    return {
+        type: 'SET_CURRENT_ENTITY_ITEMS',
+        payload: currentEntityItems
+    }
+}
