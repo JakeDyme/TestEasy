@@ -3,7 +3,7 @@ using TestEasy.WebApi.Models;
 
 namespace TestEasy.WebApi.Interfaces
 {
-	public interface IActionService
+	public interface IActionsService
 	{
 		/// <summary>
 		/// Gets the list of actions for a given provider

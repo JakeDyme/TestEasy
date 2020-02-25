@@ -3,7 +3,7 @@ using TestEasy.WebApi.Models;
 
 namespace TestEasy.WebApi.Interfaces
 {
-	public interface ITestService
+	public interface ITestsService
 	{
 		IEnumerable<TestView> GetAll();
 		TestView GetById(int id);

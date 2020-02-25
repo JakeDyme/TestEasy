@@ -7,7 +7,7 @@ using TestEasy.WebApi.Models;
 
 namespace TestEasy.WebApi.Services
 {
-	public class ActionService : IActionService
+	public class ActionService : IActionsService
 	{
 		private readonly IActionsProvider _actionsProvider;
 

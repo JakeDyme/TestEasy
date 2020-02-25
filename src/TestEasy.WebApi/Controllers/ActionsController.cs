@@ -8,9 +8,9 @@ namespace TestEasy.WebApi.Controllers
 	[ApiController]
 	public class ActionsController: ControllerBase
 	{
-		private readonly IActionService _actionsService;
+		private readonly IActionsService _actionsService;
 
-		public ActionsController(IActionService actionsService) {
+		public ActionsController(IActionsService actionsService) {
 			_actionsService = actionsService;
 		}
 

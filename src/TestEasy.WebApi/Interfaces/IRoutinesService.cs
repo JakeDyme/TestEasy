@@ -3,7 +3,7 @@ using TestEasy.WebApi.Models;
 
 namespace TestEasy.WebApi.Interfaces
 {
-	public interface IRoutineService
+	public interface IRoutinesService
 	{
 		IEnumerable<RoutineView> GetAll();
 		RoutineView GetById(int id);

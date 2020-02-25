@@ -33,7 +33,11 @@ namespace TestEasy.WebApi
 
       services.AddScoped<IExecutionContext, ExecutionContext>();
       services.AddScoped<IActionsProvider, ActionsProvider>();
-      services.AddScoped<IActionService, ActionService>();
+
+      services.AddScoped<ITestsService, TestsService>();
+      services.AddScoped<IRoutinesService, RoutinesService>();
+      services.AddScoped<ISetupsService, SetupsService>();
+      services.AddScoped<IActionsService, ActionService>();
 
       services.AddCors(options =>
       {

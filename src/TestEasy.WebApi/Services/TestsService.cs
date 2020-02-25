@@ -10,12 +10,13 @@ using TestEasy.WebApi.Models;
 namespace TestEasy.WebApi.Services
 {
 	
-	public class TestService : ITestService
+	public class TestsService : ITestsService
 	{
 		private readonly IActionsProvider _actionsProvider;
 		private readonly TestEasyDbContext _dbContext;
-		public TestService(IActionsProvider actionsProvider, TestEasyDbContext _dbContext)
+		public TestsService(IActionsProvider actionsProvider, TestEasyDbContext dbContext)
 		{
+			_dbContext = dbContext;
 			_actionsProvider = actionsProvider;
 		}
 
