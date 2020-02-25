@@ -1,49 +1,49 @@
 
-export const FetchingActionsList = (fetching) =>{
+export const fetchingActionsList = (fetching) =>{
     return {
         type: 'SET_FETCHING_ACTIONS',
         payload: fetching
     }
 }
 
-export const SetActionsList = (testActionList) => {
+export const setActionsList = (itemsList) => {
     return {
         type: 'SET_ACTIONS',
-        payload: testActionList
+        payload: itemsList
     }
 }
 
-export const SetTestsList = (testActionList) => {
+export const setTestsList = (itemsList) => {
     return {
         type: 'SET_TESTS',
-        payload: testActionList
+        payload: itemsList
     }
 }
 
-export const SetSetupsList = (testActionList) => {
+export const setSetupsList = (itemsList) => {
     return {
         type: 'SET_SETUPS',
-        payload: testActionList
+        payload: itemsList
     }
 }
 
-export const SetRoutinesList = (testActionList) => {
+export const setRoutinesList = (itemsList) => {
     return {
         type: 'SET_ROUTINES',
-        payload: testActionList
+        payload: itemsList
     }
 }
 
-export const SetCurrentSectionType = (sectionTypeEnumValue) => {
+export const setCurrentSectionType = (sectionTypeEnumValue) => {
     return {
         type: 'SET_CURRENT_SECTION_TYPE',
         payload: sectionTypeEnumValue
     }
 }
 
-export const SetCurrentEntity = (currentEntity) => {
+export const setCurrentEntity = (currentEntity) => {
     return {
-        type: 'SET_CURRENT_ENTITY',
+        type: 'SET_CURRENT_EDITOR_ENTITY',
         payload: currentEntity
     }
 }
