@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -6,6 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import SectionEditor from "./SectionEditor/SectionEditor"
+import sectionTypeEnum from "../../enums/sectionTypeEnum"
+import { useSelector } from "react-redux"
+
 const useStyles = makeStyles({
   card: {
     minWidth: 300
@@ -24,8 +27,10 @@ const useStyles = makeStyles({
 });
 
 const SectionHeader = props => {
+  const selectedSectionType = useSelector(state => state.currentSectionType);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  //const [sectionTitle, setSectionTitle] = React.useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,6 +39,21 @@ const SectionHeader = props => {
   const handleClose = () => {
     setOpen(false);
   }
+
+  function getSectionTitle(inputSectionTypeEnum){
+    switch (inputSectionTypeEnum){
+      case sectionTypeEnum.TESTS: return "TESTS"
+      case sectionTypeEnum.SETUPS: return "SETUPS"
+      case sectionTypeEnum.ROUTINES: return "ROUTINES"
+      case sectionTypeEnum.ACTIONS: return "ACTIONS" 
+      default: return "error"
+    }
+  }
+
+  // useEffect(() => {
+  //   //let sectionTitle = 
+  //   setSectionTitle(getSectionTitle(selectedSectionType))
+  // }, [selectedSectionType]);
 
   return (
     <React.Fragment>
@@ -48,7 +68,7 @@ const SectionHeader = props => {
           Word of the Day
         </Typography> */}
         <Typography variant="h5" component="h2">
-          Tests
+          {getSectionTitle(selectedSectionType)}
         </Typography>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
           Create New

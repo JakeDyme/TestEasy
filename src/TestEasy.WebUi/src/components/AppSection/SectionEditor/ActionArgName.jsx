@@ -12,9 +12,15 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
+const mockActions = [
+    { id: 1, name: "Click on Thing" },
+    { id: 2, name: "Launch sit" },
+    { id: 3, name: "Wait" }
+]
 
 const ActionArgName = props => {
-const classes = useStyles();
+    
+    const classes = useStyles();
     return (
         <div>
             <FormControl className={classes.formControl} error>
@@ -28,9 +34,12 @@ const classes = useStyles();
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Action 1</MenuItem>
+                    { mockActions.map((action) => {
+                        return(<MenuItem value={action.id}>{action.name}</MenuItem>)
+                    }) }
+{/*                     
                     <MenuItem value={20}>Action 2</MenuItem>
-                    <MenuItem value={30}>Action 3</MenuItem>
+                    <MenuItem value={30}>Action 3</MenuItem> */}
                 </Select>
             </FormControl>
         </div>

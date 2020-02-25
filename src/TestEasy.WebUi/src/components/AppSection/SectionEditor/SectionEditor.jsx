@@ -8,6 +8,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditorActionArg from './EditorActionArg'
+import { useSelector, useDispatch, connect } from "react-redux";
+import { saveCurrentEntity } from "../../../actions/commonEntityActions"
+
 
 const useStyles = makeStyles(theme => ({
     form: {
@@ -20,6 +23,7 @@ const useStyles = makeStyles(theme => ({
       marginTop: theme.spacing(2),
       minWidth: 120,
     },
+
     formControlLabel: {
       marginTop: theme.spacing(1),
     },
@@ -29,9 +33,82 @@ const useStyles = makeStyles(theme => ({
   }));
 
 const SectionEditor = props => {
+    const dispatch = useDispatch();
     const classes = useStyles();
     const [fullWidth, setFullWidth] = React.useState(true);
     const [maxWidth, setMaxWidth] = React.useState('sm');
+    //const [currentEntity, setCurrentEntity] = React.useState(null);
+    
+    //const currentEditorEntity = useSelector(state => state.currentEditorEntity);
+    const currentSectionType = useSelector(state => state.currentSectionType);
+
+    const currentEditorEntity = {
+        id: 1,
+        name: "Launc google click search",
+        fields: [
+            {
+                name: "Selenium.Host",
+                params: [
+                    {
+                        name: "Selenium host name",
+                        value:"",
+                        options: [
+                            { name: "local machine", value: "http://localhost:3000"  }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "Website",
+                params: [
+                    {
+                        name: "Website name",
+                        value:"",
+                    }
+                ]
+            }
+        ],
+        actions: [
+            {
+                name: "Launch Url", 
+                params: [
+                    {
+                        name: "Url", 
+                        value: "", 
+                        options: [
+                            { name: "google", value: "https://www.google.com" },
+                            { name: "facebook", value: "https://www.facebook.com" },
+                            { name: "ebay", value: "https://www.ebay.com" },
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "ClickOnElement", 
+                params: [
+                    {
+                        name: "selectionType", 
+                        value: "", 
+                        options: [
+                            { name: "By Element DOM Id", value: "elementId" },
+                            { name: "By Classname", value: "className" },
+                            { name: "By XPath", value: "xpath" },
+                        ]
+                    },
+                    {
+                        name: "Value", 
+                        value: "", 
+                        options: []
+                    }
+                ]
+            }
+        ]
+
+    }
+
+    const handleSave = () => {
+        dispatch(saveCurrentEntity());
+    }
 
     return (
         <div>
@@ -57,15 +134,23 @@ const SectionEditor = props => {
                     value="My Test"
                 />
 
-                <div className={classes.argument}><EditorActionArg></EditorActionArg></div>
-                <div className={classes.argument}><EditorActionArg></EditorActionArg></div>
+                { currentEditorEntity.fields.map((field) => {
+                    return (<div className={ classes.argument }><EditorActionArg argument={field}></EditorActionArg></div>)
+                })}
+
+                { currentEditorEntity.actions.map((action) => {
+                    return (<div className={ classes.argument }><EditorActionArg argument={action}></EditorActionArg></div>)
+                })}
+
+                {/* <div className={ classes.argument }><EditorActionArg></EditorActionArg></div>
+                <div className={ classes.argument }><EditorActionArg></EditorActionArg></div> */}
                 
             </DialogContent>
             <DialogActions>
             <Button onClick={props.handleClose} color="primary">
                 Cancel
             </Button>
-            <Button onClick={props.handleClose} color="primary">
+            <Button onClick={handleSave} color="primary">
                 Save
             </Button>
             </DialogActions>

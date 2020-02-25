@@ -125,7 +125,7 @@ const SectionItemsTable = props => {
   const classes = useStyles();
   
   // Global state...
-  const testActions = useSelector(state => state.testActions);
+  const entityItems = useSelector(state => state.currentEntityItems);
   const currentSection = useSelector(state => state.currentSection);
 
   // Local state...
@@ -169,16 +169,16 @@ const SectionItemsTable = props => {
 
   // Initializers...
   useEffect(() => {
-    dispatch(getAllEntities(props.sectionType));
+    dispatch(getAllEntities());
   },[getAllEntities]);
 
   // Renders...
-  if (testActions.loading) {
+  if (entityItems.loading) {
     return <div>Loading</div>
   }
 
-  if (testActions.error) {
-      return <div style={{ color: 'red' }}>ERROR: {testActions.error}</div>
+  if (entityItems.error) {
+      return <div style={{ color: 'red' }}>ERROR: {entityItems.error}</div>
   }
 
   return (
@@ -201,7 +201,7 @@ const SectionItemsTable = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            { testActions.items
+            { entityItems.items
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(row => {
                 return (
@@ -279,7 +279,7 @@ const SectionItemsTable = props => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={testActions.items.length}
+        count={entityItems.items.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
