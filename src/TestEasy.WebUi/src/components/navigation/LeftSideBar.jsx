@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -13,6 +13,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import sectionTypeEnum from "../../enums/sectionTypeEnum"
+import { setCurrentSectionType } from '../../actions'
+import { getAllEntities } from '../../actions/commonEntityActions'
+
+import { useSelector, useDispatch, connect } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -63,9 +68,30 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LeftSideBar = props => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
 
+  const selectSectionType = (selectedMenuItem) => {
+    //useEffect(() => {
+    dispatch(setCurrentSectionType(selectedMenuItem.sectionType));
+    dispatch(getAllEntities());
+    //dispatch(SetCurrentSectionType(selectedMenuItem.sectionType));
+    //})
+  }
+
+  // useEffect(() => {
+  //   dispatch(getAllEntities());
+  // },[getAllEntities]);
+
+
+  const menuItems = [
+    {text: "Tests", sectionType: sectionTypeEnum.TESTS },
+    {text: "Setups", sectionType: sectionTypeEnum.SETUPS },
+    {text: "Routines", sectionType: sectionTypeEnum.ROUTINES },
+    {text: "Actions", sectionType: sectionTypeEnum.ACTIONS },
+  ]
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -93,19 +119,19 @@ const LeftSideBar = props => {
         </div>
         <Divider />
         <List>
-          {["Scenarios", "Configs", "Sequences", "Actions"].map(
-            (text, index) => (
-              <ListItem button key={text}>
+          {menuItems.map(
+            (item, index) => {
+              return (<ListItem button key={item.text} onClick={() => selectSectionType(item)}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
+                <ListItemText primary={item.text} />
+              </ListItem>)
+            } 
           )}
         </List>
         <Divider />
-        <List>
+        {/* <List>
           {[].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -114,7 +140,7 @@ const LeftSideBar = props => {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       {/* <main className={classes.content}>
         <div className={classes.toolbar} />
