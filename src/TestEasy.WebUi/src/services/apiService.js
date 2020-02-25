@@ -9,7 +9,7 @@ export const getDataFromApi = (urlExtension, method, object) => {
         case 'GET': return fetch(url);
         case 'DELETE': return axios.delete(url);
         case 'PUT': return axios.put(url, object);
-        case 'PUT': return axios.post(url, object);
+        case 'POST': return axios.post(url, object);
     }
      
 }
