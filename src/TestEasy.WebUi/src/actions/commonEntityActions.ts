@@ -1,8 +1,18 @@
 import { getDataFromApi } from "../services/apiService"
-import sectionTypeEnum from '../enums/sectionTypeEnum'
+import sectionTypeEnum from '../enums/SectionTypeEnum'
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from "react";
-import { setCurrentEntityItems } from '../actions'
+import { setCurrentEntityItems } from '.'
+import { ITestEntity,  } from '../interfaces/ITest'
+import { IParameter } from "../interfaces/IParameter";
+import { IArgument } from "../interfaces/IArgument";
+import { RoutineEntity } from "../models/RoutineEntity";
+import { SetupEntity } from "../models/SetupEntity";
+import { TestEntity } from "../models/TestEntity";
+import { IRoutineEntity } from "../interfaces/IRoutineEntity";
+import { ISetupEntity } from "../interfaces/ISetupEntity";
+import SectionTypeEnum from '../enums/SectionTypeEnum'
+
 export const LOAD_TESTS = 'LOAD_TESTS';
 export const LOAD_TESTS_LOADING = 'LOAD_TESTS_LOADING';
 export const LOAD_TESTS_ERROR = 'LOAD_TESTS_ERROR';
@@ -23,7 +33,7 @@ export const LOAD_ENTITIES = 'LOAD_ENTITIES';
 export const LOAD_ENTITIES_LOADING = 'LOAD_ENTITIES_LOADING';
 export const LOAD_ENTITIES_ERROR = 'LOAD_ENTITIES_ERROR';
 
-function getAllEndpointMapping(sectionTypeEnumValue){
+function getAllEndpointMapping(sectionTypeEnumValue: SectionTypeEnum){
     switch (sectionTypeEnumValue) {
         case sectionTypeEnum.TESTS: return { 
             method: 'GET', 
@@ -57,7 +67,7 @@ function getAllEndpointMapping(sectionTypeEnumValue){
     }
 }
 
-function getByIdEndpointMapping(sectionTypeEnumValue){
+function getByIdEndpointMapping(sectionTypeEnumValue: SectionTypeEnum){
     switch (sectionTypeEnumValue) {
         case sectionTypeEnum.TESTS: return { 
             method: 'GET', 
@@ -91,7 +101,7 @@ function getByIdEndpointMapping(sectionTypeEnumValue){
     }
 }
 
-function deleteEndpointMapping(sectionTypeEnumValue){
+function deleteEndpointMapping(sectionTypeEnumValue: SectionTypeEnum){
     switch (sectionTypeEnumValue) {
         case sectionTypeEnum.TESTS: return { method: 'DELETE', url: 'view/test/{id}', loadingActionType: LOAD_TESTS_LOADING, errorActionType: LOAD_TESTS_ERROR  };
         case sectionTypeEnum.SETUPS: return { method: 'DELETE', url: 'view/setup/{id}', loadingActionType: LOAD_SETUPS_LOADING, errorActionType: LOAD_SETUPS_ERROR };
@@ -101,7 +111,7 @@ function deleteEndpointMapping(sectionTypeEnumValue){
     }
 }
 
-function saveEndpointMapping(sectionTypeEnumValue){
+function saveEndpointMapping(sectionTypeEnumValue: SectionTypeEnum){
     switch (sectionTypeEnumValue) {
         case sectionTypeEnum.TESTS: return { 
             method: 'POST', 
@@ -135,29 +145,27 @@ function saveEndpointMapping(sectionTypeEnumValue){
     }
 }
 
-export const httpRequest = async (endpointData, dispatch, entityIdIfAny, entityIfAny) => {
+export const httpRequest = async (endpointData: any, dispatch: Function, entityIdIfAny?: number, entityIfAny?:any ) => {
     if (endpointData.loadingActionType) dispatch({ type: endpointData.loadingActionType });
     if (endpointData.loadingActionType) dispatch({ type: LOAD_ENTITIES_LOADING });
     let url = endpointData.url.replace('{id}', entityIdIfAny);
-    return getDataFromApi(url, endpointData.method, entityIfAny)
-        .then(response => response.json())
-        .then(
-            data => {
-                dispatch({ type: endpointData.getActionType, data })
-                dispatch({ type: LOAD_ENTITIES, data })
-                return data;
-            },
-            error => {
-                if (!endpointData.errorActionType) throw(error); 
-                dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' });
-                dispatch({ type: LOAD_ENTITIES_ERROR, error: error.message || 'Unexpected Error!!!' });
-                throw error;
-            }
-        )
+    try{
+        let response: any = await getDataFromApi(url, endpointData.method, entityIfAny);
+        let data: any = await response.json();
+        dispatch({ type: endpointData.getActionType, data })
+        dispatch({ type: LOAD_ENTITIES, data })
+        return data;
+    }
+    catch (error){
+        if (!endpointData.errorActionType) throw(error); 
+        dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' });
+        dispatch({ type: LOAD_ENTITIES_ERROR, error: error.message || 'Unexpected Error!!!' });
+        throw error;
+    }
  };
 
- export const getAllEntities = () => (dispatch, selector) => {
-    const currentState = selector((state) => state);
+ export const getAllEntities = () => (dispatch: Function, selector: Function) => {
+    const currentState = selector((state: any) => state);
     let currentSectionType = currentState.currentSectionType;
     let endpointData = getAllEndpointMapping(currentSectionType);
     httpRequest(endpointData, dispatch)
@@ -166,91 +174,36 @@ export const httpRequest = async (endpointData, dispatch, entityIdIfAny, entityI
     });
  }
 
- export const saveCurrentEntity = () => (dispatch, selector) => {
-    const currentState = selector((state) => state);
+ export const saveCurrentEntity = () => (dispatch: Function, selector: Function) => {
+    const currentState = selector((state: any) => state);
     let currentSectionType = currentState.currentSectionType;
     let currentEditorEntity = currentState.currentEditorEntity;
     let endpointData = saveEndpointMapping(currentSectionType);
-    httpRequest(endpointData, dispatch, null, currentEditorEntity)
+    httpRequest(endpointData, dispatch, undefined, currentEditorEntity)
 }
 
-export const getEntity = (entityId) => (dispatch, selector) => {
-    const currentState = selector((state) => state);
+export const getEntity = (entityId: number) => (dispatch: Function, selector: Function) => {
+    const currentState = selector((state: any) => state);
     let currentSectionType = currentState.currentSectionType;
     let endpointData = getByIdEndpointMapping(currentSectionType);
     httpRequest(endpointData, dispatch, entityId, null)
 }
 
-export const deleteEntity = (entityId) => (dispatch, selector) => {
-    const currentState = selector((state) => state);
+export const deleteEntity = (entityId: number) => (dispatch: Function, selector: Function) => {
+    const currentState = selector((state: any) => state);
     let currentSectionType = currentState.currentSectionType;
     let endpointData = deleteEndpointMapping(currentSectionType);
     httpRequest(endpointData, dispatch, entityId, null)
 }
 
-// export const getAllEntities = (entityActionTypeEnumValue) => dispatch => {
-//    let endpointData = getAllEndpointMapping(entityActionTypeEnumValue);
-//    if (endpointData.loadingActionType) dispatch({ type: endpointData.loadingActionType });
-//    getDataFromApi(endpointData.url, endpointData.method)
-//        .then(response => response.json())
-//        .then(
-//            data => {
-//                dispatch({ type: entityActionTypeEnumValue, data })
-//            },
-//            error => {
-//                if (!endpointData.errorActionType) throw(error); 
-//                dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' })
-//            }
-//        )
-// };
+export const createNewTestEntity = (): ITestEntity => {
+    return new TestEntity();
+}
 
-// export const getEntityById = (entityActionTypeEnumValue, entityId) => dispatch => {
-//     let endpointData = getByIdEndpointMapping(entityActionTypeEnumValue);
-//     if (endpointData.loadingActionType) dispatch({ type: endpointData.loadingActionType });
-//     let url = endpointData.url.replace('{id}', entityId);
-//     getDataFromApi(url, endpointData.method)
-//         .then(response => response.json())
-//         .then(
-//             data => {
-//                 dispatch({ type: entityActionTypeEnumValue, data })
-//             },
-//             error => {
-//                 if (!endpointData.errorActionType) throw(error); 
-//                 dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' })
-//             }
-//         )
-//  };
- 
-//  export const deleteEntity = (entityActionTypeEnumValue, entityId) => dispatch => {
-//     let endpointData = deleteEndpointMapping(entityActionTypeEnumValue);
-//     if (endpointData.loadingActionType) dispatch({ type: endpointData.loadingActionType });
-//     let url = endpointData.url.replace('{id}', entityId);
-//     getDataFromApi(url, endpointData.method)
-//         .then(response => response.json())
-//         .then(
-//             data => {
-//                 dispatch({ type: entityActionTypeEnumValue, data })
-//             },
-//             error => {
-//                 if (!endpointData.errorActionType) throw(error); 
-//                 dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' })
-//             }
-//         )
-//  };
+export const createNewSetupEntity = (): ISetupEntity => {
+    return new SetupEntity();
+}
 
-//  export const saveEntity = (entityActionTypeEnumValue, entity) => dispatch => {
-//     let endpointData = saveEndpointMapping(entityActionTypeEnumValue);
-//     if (endpointData.loadingActionType) dispatch({ type: endpointData.loadingActionType });
-//     let url = endpointData.url.replace('{id}', entityId);
-//     getDataFromApi(url, endpointData.method, entity)
-//         .then(response => response.json())
-//         .then(
-//             data => {
-//                 dispatch({ type: entityActionTypeEnumValue, data })
-//             },
-//             error => {
-//                 if (!endpointData.errorActionType) throw(error); 
-//                 dispatch({ type: endpointData.errorActionType, error: error.message || 'Unexpected Error!!!' })
-//             }
-//         )
-//  };
+export const createNewRoutineEntity = (): IRoutineEntity => {
+    return new RoutineEntity();
+}

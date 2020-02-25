@@ -6,9 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import SectionEditor from "./SectionEditor/SectionEditor"
-import sectionTypeEnum from "../../enums/sectionTypeEnum"
-import { useSelector } from "react-redux"
-
+import sectionTypeEnum from "../../enums/SectionTypeEnum"
+import { useSelector, useDispatch } from "react-redux"
+import { createNewTestEntity, createNewSetupEntity, createNewRoutineEntity } from "../../actions/commonEntityActions"
 const useStyles = makeStyles({
   card: {
     minWidth: 300
@@ -27,12 +27,23 @@ const useStyles = makeStyles({
 });
 
 const SectionHeader = props => {
+  const dispatch = useDispatch();
   const selectedSectionType = useSelector(state => state.currentSectionType);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   //const [sectionTitle, setSectionTitle] = React.useState(null);
 
+  function createNewEntity(inputSectionTypeEnum){
+    switch (inputSectionTypeEnum){
+      case sectionTypeEnum.TESTS: return dispatch(createNewTestEntity());
+      case sectionTypeEnum.SETUPS: return  dispatch(createNewSetupEntity());
+      case sectionTypeEnum.ROUTINES: return dispatch(createNewRoutineEntity());
+      default: return "error"
+    }
+  }
+
   const handleClickOpen = () => {
+    
     setOpen(true);
   }
 

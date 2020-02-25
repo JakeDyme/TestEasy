@@ -28,7 +28,7 @@ import { useSelector, useDispatch, connect } from "react-redux";
 
 import { getAllEntities } from '../../actions/commonEntityActions';
 import { LOAD_TESTS, LOAD_SETUPS, LOAD_ROUTINES, LOAD_ACTIONS } from '../../actions/commonEntityActions';
-import sectionTypeEnum from '../../enums/sectionTypeEnum';
+import sectionTypeEnum from '../../enums/SectionTypeEnum';
 
 
 const columnsHeaders = [

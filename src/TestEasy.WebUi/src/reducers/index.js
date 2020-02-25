@@ -5,14 +5,14 @@ import testsReducer from './testsReducer';
 import routinesReducer from './routinesReducer';
 import setupsReducer from './setupsReducer';
 import currentEntityItemsReducer from './currentEntityItemsReducer';
-import sectionTypeEnum from '../enums/sectionTypeEnum'
+import SectionTypeEnum from '../enums/SectionTypeEnum'
 
 const initialState = {
     testActions: [],
     tests: [],
     setups: [],
     routines: [],
-    currentSectionType: sectionTypeEnum.ACTIONS,
+    currentSectionType: SectionTypeEnum.ACTIONS,
     currentEntityItems: [],
     currentEditorEntity: null,
 };
@@ -20,7 +20,7 @@ const initialState = {
 const currentSectionTypeReducer = (state = initialState, action) => {
     switch(action.type){
         case 'SET_CURRENT_SECTION_TYPE': return action.payload
-        default: return sectionTypeEnum.ACTIONS;
+        default: return SectionTypeEnum.ACTIONS;
     }
 };
 

@@ -13,7 +13,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import sectionTypeEnum from "../../enums/sectionTypeEnum"
+import sectionTypeEnum from "../../enums/SectionTypeEnum"
 import { setCurrentSectionType } from '../../actions'
 import { getAllEntities } from '../../actions/commonEntityActions'
 

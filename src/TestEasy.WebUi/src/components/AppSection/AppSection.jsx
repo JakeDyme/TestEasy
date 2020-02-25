@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SectionHeader from "./SectionHeader";
 import SectionItemsContainer from "./SectionItemsContainer";
 import Card from "@material-ui/core/Card";
-import sectionTypeEnum from '../../enums/sectionTypeEnum';
+import sectionTypeEnum from '../../enums/SectionTypeEnum';
 import { useSelector, useDispatch, connect } from "react-redux";
 //import { getAllEntities } from '../../actions/commonEntityActions';
 
